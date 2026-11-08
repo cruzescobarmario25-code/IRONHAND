@@ -30,4 +30,5 @@ Abre `index.html` en un navegador web.
 ## Autor
 
 Mcxyz (Mario Cruz)
+Chat GPT
 
