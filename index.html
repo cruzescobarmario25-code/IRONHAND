@@ -8,14 +8,14 @@
 
 <style>
 :root {
-  --bg:#030912;
-  --panel:#0a1b2b;
-  --cyan:#42ddff;
-  --blue:#087cb5;
-  --orange:#ff9c43;
+  --bg:#05080f;
+  --panel:#111c2d;
+  --cyan:#1676c5;
+  --blue:#1676c5;
+  --orange:#e9b83f;
   --green:#65ffad;
-  --white:#e8f8ff;
-  --muted:#88a8bb;
+  --white:#edf3fb;
+  --muted:#91a4bc;
 }
 
 * {box-sizing:border-box}
@@ -34,8 +34,8 @@ body::before {
   inset:0;
   pointer-events:none;
   background-image:
-    linear-gradient(#42ddff0b 1px,transparent 1px),
-    linear-gradient(90deg,#42ddff0b 1px,transparent 1px);
+    linear-gradient(#1676c50b 1px,transparent 1px),
+    linear-gradient(90deg,#1676c50b 1px,transparent 1px);
   background-size:35px 35px;
   z-index:-1;
 }
@@ -46,7 +46,7 @@ header {
   align-items:center;
   justify-content:space-between;
   padding:0 5%;
-  border-bottom:1px solid #42ddff55;
+  border-bottom:1px solid #1676c555;
   background:#06121f;
   font-size:12px;
   letter-spacing:2px;
@@ -78,8 +78,8 @@ main {
   position:absolute;
   inset:0;
   overflow-y:auto;
-  padding:5vh 8vw;
-  justify-content:center;
+  padding:4vh 8vw;
+  justify-content:flex-start;
   flex-direction:column;
 }
 
@@ -120,7 +120,7 @@ p {
 
 .cyan {
   color:var(--cyan);
-  text-shadow:0 0 15px #42ddff77;
+  text-shadow:0 0 15px #1676c577;
 }
 
 .orange {color:var(--orange)}
@@ -142,7 +142,7 @@ p {
 
 .card {
   background:linear-gradient(140deg,#102a40,#071522);
-  border:1px solid #42ddff55;
+  border:1px solid #1676c555;
   border-radius:12px;
   padding:18px;
   margin:8px 0;
@@ -186,7 +186,7 @@ button:disabled {opacity:.3}
   justify-content:space-around;
   align-items:center;
   background:#06121f;
-  border-top:1px solid #42ddff55;
+  border-top:1px solid #1676c555;
   z-index:10;
 }
 
@@ -206,7 +206,7 @@ button:disabled {opacity:.3}
   padding:16px 8px;
   text-align:center;
   background:#0b2235;
-  border:1px solid #42ddff55;
+  border:1px solid #1676c555;
   border-radius:8px;
   transition:.3s;
 }
@@ -227,7 +227,7 @@ button:disabled {opacity:.3}
   width:100%;
   height:130px;
   background:#061522;
-  border:1px solid #42ddff44;
+  border:1px solid #1676c544;
   border-radius:8px;
 }
 
@@ -252,7 +252,7 @@ button:disabled {opacity:.3}
 
 .finger {
   fill:#153c54;
-  stroke:#42ddff;
+  stroke:#1676c5;
   stroke-width:3;
   transform-box:fill-box;
   transform-origin:bottom center;
@@ -265,7 +265,7 @@ button:disabled {opacity:.3}
 
 .palm {
   fill:#102e45;
-  stroke:#42ddff;
+  stroke:#1676c5;
   stroke-width:4;
 }
 
@@ -328,8 +328,8 @@ input[type=range] {
   position: relative;
   border: 1px solid #1676c5;
   border-radius: 14px;
-  background: #030912;
-  box-shadow: 0 0 28px #087cb533;
+  background: #05080f;
+  box-shadow: 0 0 28px #1676c533;
 }
 .arm-stage canvas {
   display: block;
@@ -345,7 +345,7 @@ input[type=range] {
 .arm-info h3 { color: #e9b83f; }
 .arm-info p { line-height: 1.6; }
 .arm-label {
-  color: #42ddff;
+  color: #1676c5;
   letter-spacing: 3px;
   font-size: .8rem;
 }
@@ -353,15 +353,14 @@ input[type=range] {
   .arm-layout { grid-template-columns: 1fr; }
   .arm-stage { height: 420px; }
 }
-\n
 #arm-view {
   width: 100%;
   height: 380px;
   min-height: 300px;
   overflow: hidden;
-  border: 1px solid #42ddff55;
+  border: 1px solid #1676c555;
   border-radius: 12px;
-  background: #030912;
+  background: #05080f;
 }
 
 #arm-view canvas {
@@ -379,15 +378,127 @@ input[type=range] {
 .arm-controls label {
   display: flex;
   justify-content: space-between;
-  color: #42ddff;
+  color: #1676c5;
   font-size: 12px;
 }
 
 .arm-controls input {
   width: 100%;
-  accent-color: #42ddff;
+  accent-color: #1676c5;
 }
 
+
+/* ===== IRONHAND GLOBAL THEME PATCH ===== */
+:root {
+  --bg: #05080f;
+  --panel: #111c2d;
+  --cyan: #1676c5;
+  --blue: #1676c5;
+  --orange: #e9b83f;
+  --green: #65ffad;
+  --white: #edf3fb;
+  --muted: #91a4bc;
+  --red: #b51f2b;
+}
+body, main { background-color: var(--bg); }
+header, .controls { background: #090f19; border-color: #1676c566; }
+.brand, .tag, .cyan, h3, .arm-label { color: var(--blue); }
+.brand span, .orange { color: var(--orange); }
+h1, h2 { color: var(--white); }
+.line, #progress { background: var(--red); box-shadow: 0 0 14px #b51f2b88; }
+.card {
+  background: linear-gradient(140deg, #142238, #0b1421);
+  border-color: #1676c566;
+}
+button {
+  background: #35131a;
+  border-color: var(--red);
+  color: #f4dfe2;
+}
+button:hover { background: #551b26; border-color: var(--orange); }
+.node { background: #101d30; border-color: #1676c566; }
+#signal { background: #080f1a; border-color: #1676c566; }
+.wave { stroke: var(--blue); }
+.finger { stroke: var(--blue); }
+.palm { stroke: var(--blue); }
+.joint { fill: var(--orange); filter: drop-shadow(0 0 5px var(--orange)); }
+input[type=range] { accent-color: var(--orange); }
+.arm-slide { background: radial-gradient(ellipse at 50% 45%, #17243a 0%, #05080f 72%); }
+.arm-stage {
+  height: min(65vh, 560px);
+  min-height: 350px;
+  background: #05080f;
+  border-color: #1676c5;
+}
+.arm-stage #arm-view {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+}
+.arm-stage #arm-view canvas { width: 100%; height: 100%; display: block; }
+.arm-status {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 2;
+  padding: 6px 9px;
+  border: 1px solid #1676c577;
+  border-radius: 5px;
+  background: #05080fdd;
+  color: var(--green);
+  font: 11px monospace;
+  pointer-events: none;
+}
+.arm-info { border-left-color: var(--orange); background: #101722e8; }
+.arm-info h3 { color: var(--orange); }
+@media(max-width:750px) {
+  .arm-layout { grid-template-columns: 1fr; }
+  .arm-stage { height: 430px; min-height: 330px; }
+}
+
+
+/* ===== IRONHAND LAB ===== */
+.scope{width:100%;height:130px;display:block;background:#080f1a;border:1px solid #1676c566;border-radius:8px}
+.small-scope{height:90px}
+.envbar{position:relative;height:10px;margin:10px 0;background:#0b1626;border:1px solid #1676c544;border-radius:6px}
+.envbar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--orange);border-radius:5px}
+.envbar b{position:absolute;top:-4px;bottom:-4px;left:35%;width:2px;background:var(--green)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.row button{flex:1;padding:8px 10px;font-size:12px}
+button.on{background:#551b26;border-color:var(--orange);color:#fff}
+button.danger{background:#7a0f1b;border-color:#ff4d5e;color:#fff}
+button.danger.stopped{background:#1b5e35;border-color:var(--green)}
+.lab-panel{min-width:0}
+.lab-panel .telemetry{line-height:1.7;font-size:12px}
+.arm-slide .arm-layout{grid-template-columns:1.2fr 1fr}
+@media(max-width:750px){.arm-slide .arm-layout{grid-template-columns:1fr}}
+details summary{cursor:pointer;margin:6px 0}
+[inert]{opacity:.4}
+.diag{max-width:640px}
+.diag-row{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid #1676c533;font-family:monospace}
+.diag-row:last-child{border-bottom:0}
+.diag-row span{flex:1}
+.diag-row i{font-style:normal;font-size:11px;color:var(--muted)}
+.diag-row b{min-width:80px;text-align:right;color:var(--orange)}
+.diag-row.READY b{color:var(--green)}
+.diag-row.ERROR b{color:#ff7b86}
+.arm-slide{padding:2vh 5vw}
+.arm-slide h2{font-size:clamp(22px,3vw,32px);margin:2px 0}
+.arm-slide .arm-label{margin:2px 0 8px;font-size:.7rem}
+.arm-slide .arm-layout{align-items:start;gap:16px}
+.arm-slide .arm-stage{height:min(62vh,470px);min-height:300px}
+.arm-slide .arm-controls{gap:2px;margin-top:4px}
+.arm-slide .arm-controls label{font-size:11px}
+.arm-slide .row{margin:5px 0}
+.arm-slide .small-scope{height:70px}
+.arm-slide .envbar{margin:7px 0}
+.lab-panel .telemetry{line-height:1.5;font-size:11px}
+.slide>:first-child{margin-top:auto}
+.slide>:last-child{margin-bottom:auto}
+#signal{height:110px}
 </style>
 </head>
 
@@ -396,7 +507,7 @@ input[type=range] {
 <header>
   <div class="brand">MACxyz <span>INDUSTRIES</span></div>
   <div class="status">
-    <span class="indicator"></span>SYSTEM ONLINE uwu
+    <span class="indicator" id="sysDot"></span><span id="sysText">SYSTEM CHECK</span>
   </div>
 </header>
 
@@ -434,7 +545,7 @@ input[type=range] {
 
 <!-- PROBLEMA -->
 <section class="slide">
-  <div class="tag">02 // PROBLEMA uwudiv>
+  <div class="tag">02 // PROBLEMA</div>
   <h2>Planteamiento del problema</h2>
   <p>Controlar una prótesis con precisión requiere transformar información proveniente del cuerpo humano en órdenes que permitan generar movimientos.</p>
   <div class="card">
@@ -445,7 +556,7 @@ input[type=range] {
 
 <!-- DELIMITACION -->
 <section class="slide">
-  <div class="tag">03 // DELIMITACIÓN uwu</div>
+  <div class="tag">03 // DELIMITACIÓN</div>
   <h2>Alcance de investigación</h2>
   <div class="grid">
     <div class="card">
@@ -466,7 +577,7 @@ input[type=range] {
 
 <!-- PREGUNTA -->
 <section class="slide">
-  <div class="tag">04 // Pregunta de Investigacion uwu</div>
+  <div class="tag">04 // PREGUNTA DE INVESTIGACIÓN</div>
   <h2>Pregunta general</h2>
   <div class="card">
     <h2 class="cyan">¿Cómo impacta la integración de sensores electrónicos y señales bioeléctricas en la funcionalidad de las prótesis?</h2>
@@ -479,7 +590,7 @@ input[type=range] {
 
 <!-- HIPOTESIS -->
 <section class="slide">
-  <div class="tag">05 // HIPOTESIS uwu</div>
+  <div class="tag">05 // HIPOTESIS</div>
   <h2>Hipótesis</h2>
   <p>La integración de sensores electrónicos con sistemas de adquisición y procesamiento de señales bioeléctricas puede mejorar el control y la precisión de movimiento de una prótesis.</p>
   <div class="card">
@@ -489,7 +600,7 @@ input[type=range] {
 
 <!-- OBJETIVOS -->
 <section class="slide">
-  <div class="tag">06 // OBJETIVOS uwu</div>
+  <div class="tag">06 // OBJETIVOS</div>
   <h2>Objetivos</h2>
   <div class="card">
     <h3>GENERAL</h3>
@@ -505,7 +616,7 @@ input[type=range] {
 
 <!-- ELECTRONICA -->
 <section class="slide">
-  <div class="tag">07 // ELECTRONICA uwu</div>
+  <div class="tag">07 // ELECTRONICA</div>
   <h2>Arquitectura electrónica</h2>
   <p>Una posible cadena de procesamiento mioeléctrico:</p>
   <div class="flow">
@@ -522,7 +633,7 @@ input[type=range] {
 
 <!-- SENSORES -->
 <section class="slide">
-  <div class="tag">08 // SENSORES uwu</div>
+  <div class="tag">08 // SENSORES</div>
   <h2>¿Qué detectamos?</h2>
   <div class="grid">
     <div class="card"><h3>EMG</h3><p>Actividad eléctrica muscular.</p></div>
@@ -532,60 +643,63 @@ input[type=range] {
   </div>
 </section>
 
+<!-- DIAGNOSTICO -->
+<section class="slide">
+  <div class="tag">09 // SYSTEM DIAGNOSTICS</div>
+  <h2>IRONHAND <span class="cyan">/ SYSTEM DIAGNOSTICS</span></h2>
+  <div class="card diag">
+    <div class="diag-row" data-diag="engine"><span>Presentation engine</span><i></i><b>CHECKING</b></div>
+    <div class="diag-row" data-diag="emg"><span>EMG simulation</span><i></i><b>CHECKING</b></div>
+    <div class="diag-row" data-diag="render"><span>3D renderer</span><i></i><b>CHECKING</b></div>
+    <div class="diag-row" data-diag="gesture"><span>Gesture controller</span><i></i><b>CHECKING</b></div>
+    <div class="diag-row" data-diag="link"><span>EMG → hand integration</span><i></i><b>CHECKING</b></div>
+  </div>
+  <p class="small">Cada estado sale de una prueba ejecutada en este navegador (no son etiquetas fijas).</p>
+</section>
+
 <!-- SIMULACION -->
 <section class="slide">
-  <div class="tag">09 // SIMULACION EN VIVO</div>
-  <h2 class="cyan">SISTEMA DE CONTROL IRONHAND</h2>
-
+  <div class="tag">10 // SIMULACIÓN EMG EN VIVO</div>
+  <h2 class="cyan">DE LA SEÑAL MUSCULAR A LA DECISIÓN</h2>
   <div class="grid">
     <div class="card">
       <h3>EMG SIGNAL MONITOR</h3>
-      <canvas id="signal"></canvas>
+      <canvas id="signal" class="scope"></canvas>
+      <div class="envbar"><i></i><b></b></div>
+      <p class="small">AZUL: señal cruda · NARANJA: envolvente (rectificada y filtrada) · VERDE: umbral</p>
       <p class="telemetry">
-        SIGNAL: <span id="signalValue">0.00</span><br>
-        STATUS: <span id="signalStatus">STANDBY</span>
+        ENVOLVENTE: <span id="signalValue">0.00</span> (<span id="envValue">0</span>%)<br>
+        UMBRAL: <span id="thrValue">35</span>%<br>
+        ESTADO: <span id="signalStatus">RELAJACIÓN</span>
       </p>
-      <label class="small">INTENSIDAD MUSCULAR SIMULADA</label>
-      <input id="intensity" type="range" min="0" max="100" value="0">
-      <button onclick="activate()">ACTIVATE SIGNAL</button>
-      <button onclick="release()">RELEASE</button>
     </div>
-
-    <div class="card">
-      <h3>ROBOTIC HAND</h3>
-      <div id="arm-view" class="hand-container"></div>
-
-      <div class="arm-controls">
-        <h3>JOINT CONTROL</h3>
-
-        <label>SHOULDER <span id="shoulderValue">0°</span></label>
-        <input id="arm-shoulder" type="range"
-          min="-60" max="60" value="0">
-
-        <label>ELBOW <span id="elbowValue">0°</span></label>
-        <input id="arm-elbow" type="range"
-          min="0" max="130" value="0">
-
-        <label>WRIST <span id="wristValue">0°</span></label>
-        <input id="arm-wrist" type="range"
-          min="-70" max="70" value="0">
+    <div class="card" data-lockable>
+      <h3>LABORATORIO</h3>
+      <label class="small">ESFUERZO MUSCULAR SIMULADO <span data-show="effort">0%</span></label>
+      <input id="intensity" type="range" min="0" max="100" value="0" data-bind="effort">
+      <label class="small">UMBRAL DE ACTIVACIÓN <span data-show="threshold">35%</span></label>
+      <input type="range" min="10" max="90" value="35" data-bind="threshold">
+      <div class="row">
+        <button onclick="activate()">CONTRAER</button>
+        <button onclick="release()">RELAJAR</button>
+        <button class="autoBtn" onclick="toggleAuto()">AUTO: OFF</button>
       </div>
-
-
-      <div class="telemetry">
-        MOTOR: <span id="motorStatus">IDLE</span><br>
-        POSITION: <span id="position">OPEN</span><br>
-        POWER: <span id="power">0%</span>
-      </div>
+      <p class="small">Sube el esfuerzo hasta que la envolvente cruce el umbral: la orden pasa de “abrir” a “cerrar”. Cambia el umbral y observa la diferencia.</p>
     </div>
   </div>
-
-  <p class="small">SIMULATED DATA // NOT A REAL EMG MEASUREMENT</p>
+  <div class="flow">
+    <div class="node" id="p1"><b>01</b>SEÑAL CRUDA</div>
+    <div class="node" id="p2"><b>02</b>RECTIFICACIÓN</div>
+    <div class="node" id="p3"><b>03</b>ENVOLVENTE</div>
+    <div class="node" id="p4"><b>04</b>UMBRAL</div>
+    <div class="node" id="p5"><b>05</b>ORDEN: CERRAR</div>
+  </div>
+  <p class="small">SEÑAL SIMULADA // NO ES UNA MEDICIÓN EMG REAL</p>
 </section>
 
 <!-- PROCESAMIENTO -->
 <section class="slide">
-  <div class="tag">10 // PROCESAMIENTO DE SENSORES</div>
+  <div class="tag">11 // PROCESAMIENTO DE SENSORES</div>
   <h2>Del cuerpo al movimiento</h2>
   <div class="flow">
     <div class="node" id="n1"><b>01</b>CUERPO</div>
@@ -600,7 +714,7 @@ input[type=range] {
 
 <!-- METODOLOGIA -->
 <section class="slide">
-  <div class="tag">11 // METODOLOGIA uwu</div>
+  <div class="tag">12 // METODOLOGÍA</div>
   <h2>Metodología</h2>
   <div class="grid">
     <div class="card"><h3>ENFOQUE</h3><p>Cualitativo, mediante análisis técnico.</p></div>
@@ -611,30 +725,89 @@ input[type=range] {
 </section>
 
 
-<!-- BRAZO BIOMECANICO 3D -->
+<!-- INTEGRACION EMG -> MANO 3D -->
 <section class="slide arm-slide">
-  <div class="tag">12 // SISTEMA BIOMECANICO</div>
-  <h2>Arquitectura del brazo mioeléctrico</h2>
-  <p class="arm-label">IRONHAND // PROTOTIPO INTERACTIVO 3D</p>
-
+  <div class="tag">13 // INTEGRACIÓN EMG → MANO</div>
+  <h2>Laboratorio de control IRONHAND</h2>
+  <p class="arm-label">ARRASTRA PARA ROTAR · RUEDA PARA ZOOM · LA SEÑAL EMG SIMULADA CONTROLA LOS DEDOS</p>
   <div class="arm-layout">
-    <div class="arm-stage arm-overview"><p>MODELO 3D INTERACTIVO: CONTROLADO DESDE LA SIMULACION EMG DE LA DIAPOSITIVA 09.</p></div>
-
-    <div class="arm-info">
-      <h3>Diseño biomecánico</h3>
-      <p>Modelo tridimensional de una extremidad robótica con articulaciones y segmentos mecánicos.</p>
-      <p><strong>01 / Hombro:</strong> conexión estructural.</p>
-      <p><strong>02 / Codo:</strong> articulación motorizada.</p>
-      <p><strong>03 / Antebrazo:</strong> estructura y transmisión mecánica.</p>
-      <p><strong>04 / Muñeca:</strong> conexión con la mano.</p>
-      <p><strong>05 / Dedos:</strong> mecanismos de prensión.</p>
-      <p class="arm-label">VISUALIZACIÓN THREE.JS</p>
+    <div class="arm-stage arm-overview"><div id="arm-view" role="img" aria-label="Brazo robótico 3D interactivo"></div><div id="arm-status" class="arm-status">INICIANDO MOTOR 3D...</div></div>
+    <div class="lab-panel">
+      <canvas id="signal2" class="scope small-scope"></canvas>
+      <div class="envbar"><i></i><b></b></div>
+      <div class="telemetry">
+        EMG <span id="labEmg">0%</span> / UMBRAL <span id="labThr">35%</span> · <span id="labState">RELAJACIÓN</span><br>
+        CONTROL: <span id="labControl">EMG</span> · SISTEMA: <span id="labSystem">NORMAL</span><br>
+        APERTURA: <span id="openingValue">100%</span> · FLEXIÓN: <span id="flexValue">0°</span><br>
+        MODO: <span id="gripModeValue">PUÑO CERRADO</span> · MANO: <span id="gripStateValue">ABIERTA</span>
+      </div>
+      <div class="row">
+        <button onclick="resetAll()">↺ RESET</button>
+        <button id="estopBtn" class="danger" onclick="estop()">⛔ EMERGENCIA</button>
+      </div>
+      <div data-lockable>
+        <div class="row">
+          <button data-control="EMG" class="on" onclick="setControl('EMG')">CONTROL EMG</button>
+          <button data-control="MANUAL" onclick="setControl('MANUAL')">MANUAL</button>
+        </div>
+        <div class="arm-controls">
+          <label>ESFUERZO MUSCULAR <span data-show="effort">0%</span></label>
+          <input type="range" min="0" max="100" value="0" data-bind="effort">
+          <label>UMBRAL EMG <span data-show="threshold">35%</span></label>
+          <input type="range" min="10" max="90" value="35" data-bind="threshold">
+          <label>AGARRE MANUAL <span id="gripValue">0%</span></label>
+          <input id="arm-grip" type="range" min="0" max="100" value="0" disabled>
+        </div>
+        <div class="row">
+          <button data-grip-mode="fist" class="on">PUÑO</button>
+          <button data-grip-mode="cylinder">CILÍNDRICO</button>
+          <button data-grip-mode="pinch">PINZA</button>
+        </div>
+        <div class="row">
+          <button onclick="activate()">CONTRAER</button>
+          <button onclick="release()">RELAJAR</button>
+          <button class="autoBtn" onclick="toggleAuto()">AUTO: OFF</button>
+        </div>
+        <details>
+          <summary class="small">ARTICULACIONES (hombro / codo / muñeca)</summary>
+          <div class="arm-controls">
+            <label>SHOULDER <span id="shoulderValue">0°</span></label>
+            <input id="arm-shoulder" type="range" min="-60" max="60" value="0">
+            <label>ELBOW <span id="elbowValue">0°</span></label>
+            <input id="arm-elbow" type="range" min="0" max="130" value="0">
+            <label>WRIST <span id="wristValue">0°</span></label>
+            <input id="arm-wrist" type="range" min="-70" max="70" value="0">
+          </div>
+        </details>
+      </div>
     </div>
   </div>
 </section>
-\n<!-- RESULTADOS -->
+
+<!-- LIMITACIONES -->
 <section class="slide">
-  <div class="tag">12 // RESULTADOS ESPERADOS</div>
+  <div class="tag">14 // LIMITACIONES</div>
+  <h2>Qué es simulado y qué no</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>IMPLEMENTADO</h3>
+      <p>Señal EMG sintética con rectificación, filtrado y umbral con histéresis.</p>
+      <p>Mano 3D cinemática con dedos articulados y tres modos de agarre.</p>
+      <p>Control EMG → mano, control manual y parada de emergencia.</p>
+    </div>
+    <div class="card">
+      <h3>NO IMPLEMENTADO</h3>
+      <p>La señal no se adquiere de un músculo real.</p>
+      <p>No hay actuadores físicos, sensores reales ni validación con pacientes.</p>
+      <p>Siguiente paso: sensor EMG real, microcontrolador y actuadores.</p>
+    </div>
+  </div>
+  <p class="small">IRONHAND es un modelo demostrativo de la arquitectura de control, no una prótesis médica.</p>
+</section>
+
+<!-- RESULTADOS -->
+<section class="slide">
+  <div class="tag">15 // RESULTADOS ESPERADOS</div>
   <h2>Resultados esperados</h2>
   <p>Identificar la función de los sensores.</p>
   <p>Comprender el procesamiento de señales EMG.</p>
@@ -644,7 +817,7 @@ input[type=range] {
 
 <!-- QUIZ -->
 <section class="slide">
-  <div class="tag">13 // SISTEMA DE TESTEO</div>
+  <div class="tag">16 // SISTEMA DE TESTEO</div>
   <h2>EXAMEN DE CONOCIMIENTOS</h2>
   <p>¿Qué ocurre después de captar la actividad muscular?</p>
   <div class="grid">
@@ -658,7 +831,7 @@ input[type=range] {
 
 <!-- CONCLUSION -->
 <section class="slide">
-  <div class="tag">14 // CONCLUSION</div>
+  <div class="tag">17 // CONCLUSIÓN</div>
   <h2>Conectar intención y movimiento</h2>
   <p>Los sensores captan información del cuerpo, los circuitos electrónicos procesan las señales y los actuadores producen el movimiento.</p>
   <h2 class="cyan">La electrónica convierte información biológica en acción mecánica.</h2>
@@ -667,19 +840,18 @@ input[type=range] {
 <!-- FINAL -->
 <section class="slide">
   <div class="tag">MACxyz INDUSTRIES // RESEARCH LAB</div>
-  <h1 class="cyan">OBRIGADO A SUA MERCEDE KKKKKkk.</h1>
-  <h2>SECCION DE PREGUNTAS idk</h2>
+  <h1 class="cyan">GRACIAS</h1>
+  <h2>SECCIÓN DE PREGUNTAS</h2>
   <p>Integrantes: Cruz Escobar Jesus Mario ; Sofia Sabel Gurrola Casio ; Cesar Ramos Lizarraga</p>
   <p>Asignatura: Fundamentos de la Investigacion</p>
   <p>Docente: Gabriela Del Carmen Suarez Lizarraga</p>
-  <p class="small">Agregar referencias bibliográficas científicas.</p>
 </section>
 
 </main>
 
 <nav class="controls">
   <button onclick="move(-1)">← PREV</button>
-  <span id="counter">01 / 16</span>
+  <span id="counter">01 / 17</span>
   <button onclick="move(1)">NEXT →</button>
 </nav>
 
@@ -703,6 +875,8 @@ function showSlide(n) {
     String(current+1).padStart(2,"0") +
     " / " + String(slides.length).padStart(2,"0");
 
+  sizeScopes();
+
   document.getElementById("progress").style.width =
     ((current+1)/slides.length*100)+"%";
 }
@@ -712,6 +886,8 @@ function move(n) {
 }
 
 document.addEventListener("keydown",e=>{
+  if(/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+  if(e.key===" " && e.target.tagName==="BUTTON") return;
   if(e.key==="ArrowRight" || e.key===" ") {
     e.preventDefault();
     move(1);
@@ -727,128 +903,209 @@ document.addEventListener("keydown",e=>{
 });
 
 // ============================
-// EMG SIMULATION
+// EMG SIMULATION + CONTROL
 // ============================
+// Cadena: esfuerzo muscular -> señal cruda -> rectificación -> envolvente (filtro pasa-bajas)
+//         -> umbral con histéresis -> orden (cerrar/abrir) -> evento "ironhand:emg" -> mano 3D
 
-const canvas = document.getElementById("signal");
-const ctx = canvas.getContext("2d");
+const EMG = {
+  effort: 0,        // esfuerzo muscular simulado 0-100
+  threshold: 35,    // umbral de activación (%)
+  envelope: 0,      // envolvente procesada (%)
+  contracted: false,
+  control: "EMG",   // "EMG" | "MANUAL"
+  estop: false,
+  auto: false
+};
 
-let intensity = 0;
-let signalRunning = false;
-let phase = 0;
+const SAMPLES = 480, PER_FRAME = 4, ENV_ALPHA = 0.02, ENV_FULL = 0.27;
+const rawBuf = new Float32Array(SAMPLES);
+const envBuf = new Float32Array(SAMPLES);
+let head = 0, envRaw = 0, frames = 0, lastT = performance.now();
 
-function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
+const scopes = [...document.querySelectorAll("canvas.scope")].map(c => ({c, ctx:c.getContext("2d")}));
+
+function sizeScopes() {
   const dpr = window.devicePixelRatio || 1;
-
-  canvas.width = Math.max(1,rect.width*dpr);
-  canvas.height = Math.max(1,rect.height*dpr);
-
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-}
-
-window.addEventListener("resize",resizeCanvas);
-resizeCanvas();
-
-document.getElementById("intensity").addEventListener("input",e=>{
-  intensity = Number(e.target.value);
-  signalRunning = intensity > 0;
-  updateSignal();
-});
-
-function activate() {
-  intensity = Math.max(intensity,70);
-  document.getElementById("intensity").value = intensity;
-  signalRunning = true;
-  updateSignal();
-}
-
-function release() {
-  intensity = 0;
-  signalRunning = false;
-  document.getElementById("intensity").value = 0;
-  updateSignal();
-}
-
-function updateSignal() {
-  window.dispatchEvent(new CustomEvent("ironhand:emg", {
-    detail: intensity
-  }));
-
-  document.getElementById("signalStatus").textContent =
-    intensity > 0 ? "ACTIVE" : "STANDBY";
-
-  document.getElementById("signalValue").textContent =
-    (intensity/100).toFixed(2);
-
-  document.getElementById("power").textContent =
-    intensity+"%";
-
-  document.getElementById("motorStatus").textContent =
-    intensity > 35 ? "MOVING" : "IDLE";
-
-  document.getElementById("position").textContent =
-    intensity > 35 ? "CLOSED" : "OPEN";
-
-  document.querySelectorAll(".finger").forEach(finger=>{
-    finger.classList.toggle("closed",intensity>35);
+  scopes.forEach(s => {
+    const r = s.c.getBoundingClientRect();
+    s.c.width = Math.max(1, Math.round(r.width*dpr));
+    s.c.height = Math.max(1, Math.round(r.height*dpr));
+    s.ctx.setTransform(dpr,0,0,dpr,0,0);
   });
 }
+window.addEventListener("resize", sizeScopes);
 
-// Canvas animation
-function drawSignal() {
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-
-  if(!w || !h) {
-    requestAnimationFrame(drawSignal);
-    return;
-  }
-
+function drawScope(s) {
+  const w = s.c.clientWidth, h = s.c.clientHeight;
+  if (!w || !h) return;
+  const ctx = s.ctx, mid = h/2, amp = mid*0.9;
   ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle = "#18374c"; ctx.lineWidth = 1;
+  for (let y = mid % 25; y < h; y += 25) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
 
-  ctx.strokeStyle="#18374c";
-  ctx.lineWidth=1;
+  const thr = EMG.threshold/100*amp;
+  ctx.setLineDash([6,5]); ctx.strokeStyle = "#65ffad"; ctx.lineWidth = 1;
+  [mid-thr, mid+thr].forEach(y => { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); });
+  ctx.setLineDash([]);
 
-  for(let y=20;y<h;y+=25) {
+  const trace = (buf, scale, color, width, mirror) => {
     ctx.beginPath();
-    ctx.moveTo(0,y);
-    ctx.lineTo(w,y);
-    ctx.stroke();
-  }
-
-  ctx.beginPath();
-
-  for(let x=0;x<w;x++) {
-    let noise = signalRunning ?
-      (Math.random()-.5)*intensity*.8 : 0;
-
-    let wave =
-      Math.sin((x+phase)*.07)*noise;
-
-    let spike =
-      signalRunning && x%75<4 ?
-      -intensity*.65 : 0;
-
-    let y = h/2 + wave + spike;
-
-    if(x===0) ctx.moveTo(x,y);
-    else ctx.lineTo(x,y);
-  }
-
-  ctx.strokeStyle="#42ddff";
-  ctx.lineWidth=2;
-  ctx.shadowBlur=8;
-  ctx.shadowColor="#42ddff";
-  ctx.stroke();
-  ctx.shadowBlur=0;
-
-  phase+=signalRunning?3:1;
-
-  requestAnimationFrame(drawSignal);
+    for (let i = 0; i < SAMPLES; i++) {
+      const v = buf[(head+i) % SAMPLES]*scale*amp;
+      const x = i/(SAMPLES-1)*w, y = mirror ? mid-v : mid-v;
+      i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+    }
+    ctx.strokeStyle = color; ctx.lineWidth = width; ctx.stroke();
+  };
+  ctx.shadowBlur = 6; ctx.shadowColor = "#1676c5";
+  trace(rawBuf, 1, "#1676c5", 1.5);
+  ctx.shadowBlur = 0;
+  trace(envBuf, 1, "#e9b83f", 2.2);
+  const neg = new Float32Array(SAMPLES); for (let i=0;i<SAMPLES;i++) neg[i] = -envBuf[i];
+  trace(neg, 1, "#e9b83f", 2.2);
 }
 
-drawSignal();
+const lastText = {};
+function put(id, text) {
+  if (lastText[id] === text) return;
+  lastText[id] = text;
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
+function tick(now) {
+  requestAnimationFrame(tick);
+  const dt = Math.min(0.05, (now-lastT)/1000); lastT = now;
+
+  if (EMG.estop) { EMG.effort = 0; EMG.auto = false; }
+  else if (EMG.auto) {
+    const target = Math.sin(now/1000*0.9) > 0.15 ? 80 : 5;
+    EMG.effort += (target-EMG.effort)*Math.min(1, dt*4);
+  }
+
+  // Señal cruda: ruido cuya amplitud crece con el esfuerzo.
+  const amp = 0.04 + 0.96*EMG.effort/100;
+  for (let k = 0; k < PER_FRAME; k++) {
+    const n = (Math.random()+Math.random()+Math.random()-1.5)/1.5;
+    const raw = n*amp;
+    envRaw += (Math.abs(raw)-envRaw)*ENV_ALPHA;      // rectificar + filtrar
+    rawBuf[head] = raw;
+    envBuf[head] = Math.min(1, envRaw/ENV_FULL);
+    head = (head+1) % SAMPLES;
+  }
+  frames++;
+  EMG.envelope = Math.min(100, envRaw/ENV_FULL*100);
+
+  // Umbral con histéresis (evita parpadeo cerca del umbral).
+  if (EMG.estop) EMG.contracted = false;
+  else if (!EMG.contracted && EMG.envelope > EMG.threshold) EMG.contracted = true;
+  else if (EMG.contracted && EMG.envelope < EMG.threshold*0.85) EMG.contracted = false;
+
+  window.dispatchEvent(new CustomEvent("ironhand:emg", {detail:{
+    effort:EMG.effort, envelope:EMG.envelope, threshold:EMG.threshold,
+    contracted:EMG.contracted, control:EMG.control, estop:EMG.estop
+  }}));
+
+  const env = Math.round(EMG.envelope);
+  const state = EMG.estop ? "PARADA DE EMERGENCIA" : EMG.contracted ? "CONTRACCIÓN" : "RELAJACIÓN";
+  put("signalValue", (EMG.envelope/100).toFixed(2));
+  put("envValue", String(env)); put("thrValue", String(EMG.threshold));
+  put("signalStatus", state);
+  put("labEmg", env+"%"); put("labThr", EMG.threshold+"%"); put("labState", state);
+  put("labControl", EMG.control); put("labSystem", EMG.estop ? "EMERGENCIA" : "NORMAL");
+
+  document.querySelectorAll(".envbar i").forEach(e => e.style.width = EMG.envelope+"%");
+  document.querySelectorAll(".envbar b").forEach(e => e.style.left = EMG.threshold+"%");
+  document.querySelectorAll("[data-bind='effort']").forEach(el => {
+    if (Number(el.value) !== Math.round(EMG.effort)) el.value = Math.round(EMG.effort);
+  });
+  document.querySelectorAll("[data-show]").forEach(el => {
+    el.textContent = Math.round(EMG[el.dataset.show])+"%";
+  });
+  const on = (id, v) => document.getElementById(id)?.classList.toggle("active", v);
+  on("p1", EMG.effort > 3); on("p2", EMG.envelope > 8); on("p3", EMG.envelope > 8);
+  on("p4", EMG.contracted); on("p5", EMG.contracted);
+
+  scopes.forEach(drawScope);
+}
+
+document.querySelectorAll("[data-bind]").forEach(el => {
+  el.addEventListener("input", () => {
+    const key = el.dataset.bind, v = Number(el.value);
+    EMG[key] = v;
+    if (key === "effort") EMG.auto = false;
+    document.querySelectorAll("[data-bind='"+key+"']").forEach(o => { if (o !== el) o.value = v; });
+    refreshAuto();
+  });
+});
+
+function refreshAuto() {
+  document.querySelectorAll(".autoBtn").forEach(b => {
+    b.textContent = "AUTO: " + (EMG.auto ? "ON" : "OFF");
+    b.classList.toggle("on", EMG.auto);
+  });
+}
+function activate() { if (EMG.estop) return; EMG.auto = false; EMG.effort = 85; refreshAuto(); }
+function release()  { EMG.auto = false; EMG.effort = 0; refreshAuto(); }
+function toggleAuto() { if (EMG.estop) return; EMG.auto = !EMG.auto; refreshAuto(); }
+
+function setControl(mode) {
+  EMG.control = mode;
+  document.querySelectorAll("[data-control]").forEach(b => b.classList.toggle("on", b.dataset.control === mode));
+  const g = document.getElementById("arm-grip");
+  if (g) g.disabled = mode === "EMG" || EMG.estop;
+}
+
+function estop() {
+  EMG.estop = !EMG.estop;
+  if (EMG.estop) { EMG.effort = 0; EMG.auto = false; refreshAuto(); }
+  document.querySelectorAll("[data-lockable]").forEach(el => { el.inert = EMG.estop; });
+  const b = document.getElementById("estopBtn");
+  b.textContent = EMG.estop ? "✔ REARMAR SISTEMA" : "⛔ EMERGENCIA";
+  b.classList.toggle("stopped", EMG.estop);
+  setControl(EMG.control);
+}
+
+function resetAll() {
+  if (EMG.estop) estop();
+  EMG.effort = 0; EMG.auto = false; EMG.threshold = 35;
+  document.querySelectorAll("[data-bind='threshold']").forEach(el => el.value = 35);
+  refreshAuto(); setControl("EMG");
+  window.dispatchEvent(new CustomEvent("ironhand:reset"));
+}
+
+// ============================
+// SYSTEM DIAGNOSTICS (pruebas reales)
+// ============================
+
+let linkOk = false;
+function runDiagnostics() {
+  const st = window.IRONHAND_STATUS || {renderer:"CHECKING"};
+  const arm = window.IRONHAND_ARM;
+  const tests = {
+    engine:  () => slides.length > 0 ? ["READY", slides.length+" diapositivas"] : ["ERROR",""],
+    emg:     () => frames > 30 && rawBuf.some(v => v !== 0) ? ["READY","señal generándose"] : ["CHECKING",""],
+    render:  () => st.renderer === "READY" ? ["READY","Three.js · "+st.source]
+                 : st.renderer === "ERROR" ? ["ERROR", st.detail] : ["CHECKING",""],
+    gesture: () => !arm ? [st.renderer === "ERROR" ? "ERROR" : "CHECKING",""]
+                 : arm.selfTest() ? ["READY","dedos responden"] : ["ERROR","dedos no responden"],
+    link:    () => { if (!arm) return [st.renderer === "ERROR" ? "ERROR" : "CHECKING",""];
+                     if (arm.lastEventAge() < 500) linkOk = true;
+                     return linkOk ? ["READY","mano recibe señal EMG"] : ["CHECKING",""]; }
+  };
+  let allReady = true;
+  document.querySelectorAll("[data-diag]").forEach(row => {
+    const [state, note] = tests[row.dataset.diag]();
+    if (state !== "READY") allReady = false;
+    row.className = "diag-row " + state;
+    row.querySelector("b").textContent = state;
+    row.querySelector("i").textContent = note;
+  });
+  const dot = document.getElementById("sysDot");
+  put("sysText", allReady ? "SYSTEM ONLINE" : "SYSTEM CHECK");
+  if (dot) { dot.style.background = allReady ? "var(--green)" : "var(--orange)"; dot.style.boxShadow = "0 0 10px "+(allReady ? "var(--green)" : "var(--orange)"); }
+}
 
 // ============================
 // ELECTRONIC PROCESS SEQUENCE
@@ -909,18 +1166,20 @@ function quiz(correct) {
     feedback.style.color="#65ffad";
   } else {
     feedback.textContent="✕ INCORRECT. REVIEW SIGNAL PROCESSING.";
-    feedback.style.color="#ff9c43";
+    feedback.style.color="#e9b83f";
   }
 }
 
 showSlide(0);
-updateSignal();
+requestAnimationFrame(tick);
+runDiagnostics();
+setInterval(runDiagnostics,800);
 
 </script>
 
 
 <!-- MODULO THREE.JS: BRAZO BIOMECANICO -->
 <script type="module" src="./js/arm/arm.js"></script>
-\n</body>
+</body>
 </html>
 
