@@ -1,0 +1,243 @@
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js';
+
+const container = document.getElementById('arm-view');
+
+if (!container) throw new Error('No existe #arm-view');
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x030912);
+
+const camera = new THREE.PerspectiveCamera(
+  38, container.clientWidth / container.clientHeight, 0.1, 100
+);
+camera.position.set(3.8, 1.2, 5.8);
+camera.lookAt(0, -0.65, 0);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+container.appendChild(renderer.domElement);
+
+// ILUMINACIÓN
+scene.add(new THREE.HemisphereLight(0x8bdfff, 0x142333, 2));
+
+const keyLight = new THREE.DirectionalLight(0xffffff, 3);
+keyLight.position.set(3, 5, 5);
+scene.add(keyLight);
+
+const blueLight = new THREE.PointLight(0x087cb5, 30, 8);
+blueLight.position.set(-3, 0, 2);
+scene.add(blueLight);
+
+// MATERIALES
+const titanium = new THREE.MeshStandardMaterial({
+  color: 0x657786, metalness: 0.85, roughness: 0.3
+});
+
+const darkMetal = new THREE.MeshStandardMaterial({
+  color: 0x142b3d, metalness: 0.8, roughness: 0.35
+});
+
+const cyan = new THREE.MeshStandardMaterial({
+  color: 0x42ddff, emissive: 0x087cb5, emissiveIntensity: 1.5
+});
+
+const orange = new THREE.MeshStandardMaterial({
+  color: 0xff9c43, metalness: 0.6, roughness: 0.3
+});
+
+// FUNCIONES GEOMÉTRICAS
+function addMesh(parent, geometry, material, position) {
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(...position);
+  parent.add(mesh);
+  return mesh;
+}
+
+function cylinder(parent, radiusTop, radiusBottom, length, material, position) {
+  return addMesh(
+    parent,
+    new THREE.CylinderGeometry(radiusTop, radiusBottom, length, 24),
+    material,
+    position
+  );
+}
+
+function joint(parent, radius, position) {
+  const group = new THREE.Group();
+  group.position.set(...position);
+  parent.add(group);
+
+  addMesh(group, new THREE.SphereGeometry(radius, 24, 16), darkMetal, [0,0,0]);
+  addMesh(group, new THREE.SphereGeometry(radius * 0.55, 20, 12), cyan, [0,0,0]);
+
+  return group;
+}
+
+// TORSO Y HOMBRO
+const arm = new THREE.Group();
+scene.add(arm);
+
+const shoulder = joint(arm, 0.29, [0, 1.45, 0]);
+
+cylinder(shoulder, 0.23, 0.23, 0.18, titanium, [0, 0, 0]);
+
+// BRAZO SUPERIOR
+const upper = new THREE.Group();
+shoulder.add(upper);
+
+cylinder(upper, 0.19, 0.15, 1.35, titanium, [0, -0.75, 0]);
+
+// Refuerzos laterales
+for (const z of [-0.13, 0.13]) {
+  cylinder(upper, 0.045, 0.045, 1.15, darkMetal, [0, -0.75, z]);
+}
+
+// CODO
+const elbow = joint(upper, 0.22, [0, -1.5, 0]);
+
+const servo = cylinder(
+  elbow, 0.25, 0.25, 0.28, orange, [0, 0, 0]
+);
+servo.rotation.x = Math.PI / 2;
+
+// ANTEBRAZO
+const forearm = new THREE.Group();
+elbow.add(forearm);
+
+cylinder(forearm, 0.13, 0.19, 1.25, titanium, [0, -0.68, 0]);
+
+// Carcasa del antebrazo
+const shell = addMesh(
+  forearm,
+  new THREE.BoxGeometry(0.34, 0.85, 0.12),
+  darkMetal,
+  [0, -0.68, 0.13]
+);
+
+for (let i = 0; i < 3; i++) {
+  const rod = cylinder(
+    forearm, 0.025, 0.025, 0.85, cyan,
+    [-0.10 + i * 0.10, -0.68, 0.12]
+  );
+}
+
+// MUÑECA
+const wrist = joint(forearm, 0.13, [0, -1.3, 0]);
+
+// PALMA
+const palm = new THREE.Group();
+wrist.add(palm);
+
+addMesh(
+  palm,
+  new THREE.BoxGeometry(0.46, 0.48, 0.19),
+  titanium,
+  [0, -0.24, 0]
+);
+
+// DEDOS MECÁNICOS
+const fingers = [];
+
+for (let i = 0; i < 4; i++) {
+  const finger = new THREE.Group();
+  finger.position.set(-0.165 + i * 0.11, -0.43, 0);
+  palm.add(finger);
+
+  cylinder(finger, 0.045, 0.05, 0.27, darkMetal, [0, -0.135, 0]);
+
+  const distal = new THREE.Group();
+  distal.position.y = -0.27;
+  finger.add(distal);
+
+  cylinder(distal, 0.035, 0.045, 0.22, titanium, [0, -0.11, 0]);
+
+  fingers.push({ proximal: finger, distal });
+}
+
+// PULGAR
+const thumb = new THREE.Group();
+thumb.position.set(0.24, -0.22, 0);
+palm.add(thumb);
+thumb.rotation.z = -0.65;
+
+cylinder(thumb, 0.045, 0.05, 0.29, darkMetal, [0.08, -0.12, 0]);
+
+const thumbTip = new THREE.Group();
+thumbTip.position.set(0.16, -0.25, 0);
+thumb.add(thumbTip);
+
+cylinder(thumbTip, 0.035, 0.045, 0.2, titanium, [0, -0.1, 0]);
+
+// EJES Y DETALLES
+const axis = new THREE.AxesHelper(0.5);
+axis.visible = false;
+scene.add(axis);
+
+// SUELO TÉCNICO
+const grid = new THREE.GridHelper(8, 24, 0x087cb5, 0x18374c);
+grid.position.y = -2.3;
+scene.add(grid);
+
+// CONTROLES
+const controls = {
+  shoulder: document.getElementById('arm-shoulder'),
+  elbow: document.getElementById('arm-elbow'),
+  wrist: document.getElementById('arm-wrist'),
+  grip: document.getElementById('arm-grip')
+};
+
+function degrees(value) {
+  return THREE.MathUtils.degToRad(Number(value));
+}
+
+function updateArm() {
+  shoulder.rotation.z = degrees(controls.shoulder.value);
+  elbow.rotation.z = degrees(controls.elbow.value);
+  wrist.rotation.y = degrees(controls.wrist.value);
+
+  const grip = Number(controls.grip.value) / 100;
+
+  fingers.forEach(({ proximal, distal }) => {
+    proximal.rotation.z = -grip * 0.85;
+    distal.rotation.z = -grip * 0.65;
+  });
+
+  thumb.rotation.z = -0.65 + grip * 0.55;
+  thumbTip.rotation.z = -grip * 0.7;
+}
+
+Object.values(controls).forEach(input => {
+  input.addEventListener('input', updateArm);
+});
+
+window.addEventListener('ironhand:emg', event => {
+  emgGrip = THREE.MathUtils.clamp(Number(event.detail) || 0, 0, 100);
+  updateArm();
+});
+
+updateArm();
+
+// ANIMACIÓN Y RESPONSIVE
+function resize() {
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+
+  if (!width || !height) return;
+
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(width, height);
+}
+
+new ResizeObserver(resize).observe(container);
+
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+
+animate();
+
+console.log('IRONHAND BIOMECHANICAL ARM: ONLINE');

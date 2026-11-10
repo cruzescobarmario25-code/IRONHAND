@@ -309,6 +309,85 @@ input[type=range] {
   .flow {gap:5px}
   .node {min-width:75px;padding:12px 5px;font-size:11px}
 }
+
+/* ===== IRONHAND 3D ===== */
+.arm-slide {
+  background: radial-gradient(ellipse at 50% 45%, #142b3d 0%, #080f19 70%);
+}
+.arm-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.arm-stage {
+  width: 100%;
+  height: min(65vh, 560px);
+  min-height: 350px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #1676c5;
+  border-radius: 14px;
+  background: #030912;
+  box-shadow: 0 0 28px #087cb533;
+}
+.arm-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.arm-info {
+  border-left: 3px solid #e9b83f;
+  padding: 20px;
+  background: #101722cc;
+  border-radius: 8px;
+}
+.arm-info h3 { color: #e9b83f; }
+.arm-info p { line-height: 1.6; }
+.arm-label {
+  color: #42ddff;
+  letter-spacing: 3px;
+  font-size: .8rem;
+}
+@media(max-width:750px) {
+  .arm-layout { grid-template-columns: 1fr; }
+  .arm-stage { height: 420px; }
+}
+\n
+#arm-view {
+  width: 100%;
+  height: 380px;
+  min-height: 300px;
+  overflow: hidden;
+  border: 1px solid #42ddff55;
+  border-radius: 12px;
+  background: #030912;
+}
+
+#arm-view canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.arm-controls {
+  display: grid;
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.arm-controls label {
+  display: flex;
+  justify-content: space-between;
+  color: #42ddff;
+  font-size: 12px;
+}
+
+.arm-controls input {
+  width: 100%;
+  accent-color: #42ddff;
+}
+
 </style>
 </head>
 
@@ -474,46 +553,24 @@ input[type=range] {
 
     <div class="card">
       <h3>ROBOTIC HAND</h3>
-      <div class="hand-container">
-        <svg id="robotHand" viewBox="0 0 300 310">
+      <div id="arm-view" class="hand-container"></div>
 
-          <!-- Brazo -->
-          <rect x="112" y="235" width="78" height="65"
-            rx="15" fill="#0a2235" stroke="#42ddff" stroke-width="3"/>
+      <div class="arm-controls">
+        <h3>JOINT CONTROL</h3>
 
-          <!-- Palma -->
-          <rect class="palm" x="75" y="125"
-            width="145" height="125" rx="25"/>
+        <label>SHOULDER <span id="shoulderValue">0°</span></label>
+        <input id="arm-shoulder" type="range"
+          min="-60" max="60" value="0">
 
-          <!-- Dedos -->
-          <g id="fingers">
+        <label>ELBOW <span id="elbowValue">0°</span></label>
+        <input id="arm-elbow" type="range"
+          min="0" max="130" value="0">
 
-            <rect class="finger" x="76" y="25"
-              width="30" height="115" rx="14"/>
-
-            <rect class="finger" x="111" y="8"
-              width="30" height="125" rx="14"/>
-
-            <rect class="finger" x="146" y="2"
-              width="30" height="130" rx="14"/>
-
-            <rect class="finger" x="181" y="22"
-              width="30" height="115" rx="14"/>
-
-          </g>
-
-          <!-- Pulgar -->
-          <g id="thumb">
-            <rect class="finger" x="205" y="125"
-              width="30" height="95" rx="14"
-              transform="rotate(-35 205 125)"/>
-          </g>
-
-          <circle class="joint" cx="148" cy="185" r="7"/>
-          <circle class="joint" cx="148" cy="220" r="7"/>
-
-        </svg>
+        <label>WRIST <span id="wristValue">0°</span></label>
+        <input id="arm-wrist" type="range"
+          min="-70" max="70" value="0">
       </div>
+
 
       <div class="telemetry">
         MOTOR: <span id="motorStatus">IDLE</span><br>
@@ -553,7 +610,29 @@ input[type=range] {
   </div>
 </section>
 
-<!-- RESULTADOS -->
+
+<!-- BRAZO BIOMECANICO 3D -->
+<section class="slide arm-slide">
+  <div class="tag">12 // SISTEMA BIOMECANICO</div>
+  <h2>Arquitectura del brazo mioeléctrico</h2>
+  <p class="arm-label">IRONHAND // PROTOTIPO INTERACTIVO 3D</p>
+
+  <div class="arm-layout">
+    <div class="arm-stage arm-overview"><p>MODELO 3D INTERACTIVO: CONTROLADO DESDE LA SIMULACION EMG DE LA DIAPOSITIVA 09.</p></div>
+
+    <div class="arm-info">
+      <h3>Diseño biomecánico</h3>
+      <p>Modelo tridimensional de una extremidad robótica con articulaciones y segmentos mecánicos.</p>
+      <p><strong>01 / Hombro:</strong> conexión estructural.</p>
+      <p><strong>02 / Codo:</strong> articulación motorizada.</p>
+      <p><strong>03 / Antebrazo:</strong> estructura y transmisión mecánica.</p>
+      <p><strong>04 / Muñeca:</strong> conexión con la mano.</p>
+      <p><strong>05 / Dedos:</strong> mecanismos de prensión.</p>
+      <p class="arm-label">VISUALIZACIÓN THREE.JS</p>
+    </div>
+  </div>
+</section>
+\n<!-- RESULTADOS -->
 <section class="slide">
   <div class="tag">12 // RESULTADOS ESPERADOS</div>
   <h2>Resultados esperados</h2>
@@ -692,6 +771,10 @@ function release() {
 }
 
 function updateSignal() {
+  window.dispatchEvent(new CustomEvent("ironhand:emg", {
+    detail: intensity
+  }));
+
   document.getElementById("signalStatus").textContent =
     intensity > 0 ? "ACTIVE" : "STANDBY";
 
@@ -835,6 +918,9 @@ updateSignal();
 
 </script>
 
-</body>
+
+<!-- MODULO THREE.JS: BRAZO BIOMECANICO -->
+<script type="module" src="./js/arm/arm.js"></script>
+\n</body>
 </html>
 

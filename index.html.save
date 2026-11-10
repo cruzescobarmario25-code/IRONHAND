@@ -1,0 +1,1283 @@
+  color:var(--cyan);
+  font-size:12px;
+  letter-spacing:4px;
+  margin-bottom:15px;
+}
+
+.line {
+  height:3px;
+  width:100px;
+  background:var(--cyan);
+  box-shadow:0 0 15px var(--cyan);
+  margin:15px 0;
+}
+
+.card {
+  background:linear-gradient(140deg,#102a40,#071522);
+  border:1px solid #42ddff55;
+  border-radius:12px;
+  padding:18px;
+  margin:8px 0;
+  box-shadow:0 0 15px #001c3040;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.small {
+  font-size:12px;
+  color:var(--muted);
+}
+
+button {
+  background:#09263b;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  padding:12px 17px;
+  border-radius:7px;
+  font-weight:bold;
+  cursor:pointer;
+  letter-spacing:1px;
+}
+
+button:active {
+  background:#145071;
+}
+
+button:disabled {opacity:.3}
+
+.controls {
+  position:fixed;
+  bottom:0;
+  height:65px;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  background:#06121f;
+  border-top:1px solid #42ddff55;
+  z-index:10;
+}
+
+#counter {color:var(--muted);font-size:12px}
+
+.flow {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:20px 0;
+}
+
+.node {
+  flex:1;
+  min-width:100px;
+  padding:16px 8px;
+  text-align:center;
+  background:#0b2235;
+  border:1px solid #42ddff55;
+  border-radius:8px;
+  transition:.3s;
+}
+
+.node.active {
+  border-color:var(--green);
+  box-shadow:0 0 20px #65ffad66;
+  color:var(--green);
+}
+
+.node b {
+  display:block;
+  font-size:20px;
+  margin-bottom:7px;
+}
+
+#signal {
+  width:100%;
+  height:130px;
+  background:#061522;
+  border:1px solid #42ddff44;
+  border-radius:8px;
+}
+
+.wave {
+  fill:none;
+  stroke:var(--cyan);
+  stroke-width:3;
+  filter:drop-shadow(0 0 5px var(--cyan));
+}
+
+.hand-container {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:10px;
+}
+
+#robotHand {
+  width:min(100%,340px);
+  height:300px;
+}
+
+.finger {
+  fill:#153c54;
+  stroke:#42ddff;
+  stroke-width:3;
+  transform-box:fill-box;
+  transform-origin:bottom center;
+  transition:transform .65s ease;
+}
+
+.finger.closed {
+  transform:rotate(-55deg);
+}
+
+.palm {
+  fill:#102e45;
+  stroke:#42ddff;
+  stroke-width:4;
+}
+
+.joint {
+  fill:var(--cyan);
+  filter:drop-shadow(0 0 5px var(--cyan));
+}
+
+.indicator {
+  display:inline-block;
+  height:9px;
+  width:9px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+  margin-right:7px;
+}
+
+.telemetry {
+  font-family:monospace;
+  color:var(--green);
+  font-size:13px;
+  line-height:2;
+}
+
+input[type=range] {
+  width:100%;
+  accent-color:var(--cyan);
+}
+
+@keyframes pulse {
+  50% {opacity:.4}
+}
+
+.pulse {animation:pulse 1s infinite}
+
+@media(max-width:650px) {
+  .grid {grid-template-columns:1fr}
+  .slide {padding:4vh 5vw}
+  .status {font-size:8px}
+  .flow {gap:5px}
+  .node {min-width:75px;padding:12px 5px;font-size:11px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">STARK <span>INDUSTRIES</span></div>
+  <div class="status">
+    <span class="indicator"></span>SYSTEM ONLINE
+  </div>
+</header>
+
+<div id="progress"></div>
+
+<main id="deck">
+
+<!-- INTRO -->
+<section class="slide active">
+  <div class="tag">STARK INDUSTRIES // RESEARCH DIVISION</div>
+  <h1 class="cyan">PROJECT<br>IRONHAND</h1>
+  <div class="line"></div>
+  <h2>Biomedical Engineering Systems</h2>
+  <p>Integración de sensores electrónicos y señales bioeléctricas en la funcionalidad de las prótesis.</p>
+  <p class="orange">RESEARCH PROTOCOL // 2026</p>
+  <p class="small">INITIALIZING PRESENTATION SYSTEM...</p>
+</section>
+
+<!-- INTRODUCCION -->
+<section class="slide">
+  <div class="tag">01 // INTRODUCCIÓN</div>
+  <h2>La evolución de las prótesis</h2>
+  <p>Las prótesis han evolucionado de dispositivos principalmente mecánicos a sistemas que incorporan sensores, electrónica y procesamiento computacional.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>Mechanical systems</h3>
+      <p>Mecanismos que dependen principalmente del movimiento y la fuerza del usuario.</p>
+    </div>
+    <div class="card">
+      <h3>Electronic systems</h3>
+      <p>Dispositivos capaces de captar información corporal y utilizarla para controlar movimientos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="slide">
+  <div class="tag">02 // PROBLEMA</div>
+  <h2>Planteamiento del problema</h2>
+  <p>Controlar una prótesis con precisión requiere transformar información proveniente del cuerpo humano en órdenes que permitan generar movimientos.</p>
+  <div class="card">
+    <h3>Problema central</h3>
+    <p>Comprender cómo la integración de sensores y señales bioeléctricas influye en la funcionalidad de los sistemas protésicos.</p>
+  </div>
+</section>
+
+<!-- DELIMITACION -->
+<section class="slide">
+  <div class="tag">03 // DELIMITACIÓN</div>
+  <h2>Alcance de investigación</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>INCLUYE</h3>
+      <p>Sensores electrónicos.</p>
+      <p>Electromiografía.</p>
+      <p>Procesamiento de señales.</p>
+      <p>Sistemas de control.</p>
+    </div>
+    <div class="card">
+      <h3>NO INCLUYE</h3>
+      <p>Procedimientos quirúrgicos.</p>
+      <p>Rehabilitación clínica.</p>
+      <p>Fabricación completa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREGUNTA -->
+<section class="slide">
+  <div class="tag">04 // RESEARCH QUESTION</div>
+  <h2>Pregunta general</h2>
+  <div class="card">
+    <h2 class="cyan">¿Cómo impacta la integración de sensores electrónicos y señales bioeléctricas en la funcionalidad de las prótesis?</h2>
+  </div>
+  <p>Preguntas específicas:</p>
+  <p>1. ¿Qué función cumplen los sensores?</p>
+  <p>2. ¿Cómo se utilizan las señales bioeléctricas?</p>
+  <p>3. ¿Cómo influye la integración en la precisión?</p>
+</section>
+
+<!-- HIPOTESIS -->
+<section class="slide">
+  <div class="tag">05 // HYPOTHESIS</div>
+  <h2>Hipótesis</h2>
+  <p>La integración de sensores electrónicos con sistemas de adquisición y procesamiento de señales bioeléctricas puede mejorar el control y la precisión de movimiento de una prótesis.</p>
+  <div class="card">
+    <p>Esto depende de la calidad de las señales, la calibración y el diseño del sistema de control.</p>
+  </div>
+</section>
+
+<!-- OBJETIVOS -->
+<section class="slide">
+  <div class="tag">06 // OBJECTIVES</div>
+  <h2>Objetivos</h2>
+  <div class="card">
+    <h3>GENERAL</h3>
+    <p>Analizar cómo la integración de sensores electrónicos y señales bioeléctricas influye en la funcionalidad de las prótesis.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>01</h3><p>Identificar los sensores utilizados.</p></div>
+    <div class="card"><h3>02</h3><p>Explicar el procesamiento de señales musculares.</p></div>
+    <div class="card"><h3>03</h3><p>Describir el control de movimiento.</p></div>
+    <div class="card"><h3>04</h3><p>Analizar ventajas y limitaciones.</p></div>
+  </div>
+</section>
+
+<!-- ELECTRONICA -->
+<section class="slide">
+  <div class="tag">07 // ELECTRONICS</div>
+  <h2>Arquitectura electrónica</h2>
+  <p>Una posible cadena de procesamiento mioeléctrico:</p>
+  <div class="flow">
+    <div class="node"><b>01</b>Electrodos</div>
+    <div class="node"><b>02</b>Amplificación</div>
+    <div class="node"><b>03</b>Filtrado</div>
+    <div class="node"><b>04</b>Microcontrolador</div>
+    <div class="node"><b>05</b>Motor</div>
+  </div>
+  <div class="card">
+    <p>La electrónica transforma una señal biológica en una orden para los actuadores.</p>
+  </div>
+</section>
+
+<!-- SENSORES -->
+<section class="slide">
+  <div class="tag">08 // SENSORS</div>
+  <h2>¿Qué detectamos?</h2>
+  <div class="grid">
+    <div class="card"><h3>EMG</h3><p>Actividad eléctrica muscular.</p></div>
+    <div class="card"><h3>Fuerza</h3><p>Presión y fuerza de agarre.</p></div>
+    <div class="card"><h3>Posición</h3><p>Ángulo de las articulaciones.</p></div>
+    <div class="card"><h3>Movimiento</h3><p>Aceleración y orientación.</p></div>
+  </div>
+</section>
+
+<!-- SIMULACION -->
+<section class="slide">
+  <div class="tag">09 // LIVE SIMULATION</div>
+  <h2 class="cyan">IRONHAND CONTROL SYSTEM</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>EMG SIGNAL MONITOR</h3>
+      <canvas id="signal"></canvas>
+      <p class="telemetry">
+        SIGNAL: <span id="signalValue">0.00</span><br>
+        STATUS: <span id="signalStatus">STANDBY</span>
+      </p>
+      <label class="small">INTENSIDAD MUSCULAR SIMULADA</label>
+      <input id="intensity" type="range" min="0" max="100" value="0">
+      <button onclick="activate()">ACTIVATE SIGNAL</button>
+      <button onclick="release()">RELEASE</button>
+    </div>
+
+    <div class="card">
+      <h3>ROBOTIC HAND</h3>
+      <div class="hand-container">
+        <svg id="robotHand" viewBox="0 0 300 310">
+
+          <!-- Brazo -->
+          <rect x="112" y="235" width="78" height="65"
+            rx="15" fill="#0a2235" stroke="#42ddff" stroke-width="3"/>
+
+          <!-- Palma -->
+          <rect class="palm" x="75" y="125"
+            width="145" height="125" rx="25"/>
+
+          <!-- Dedos -->
+          <g id="fingers">
+
+            <rect class="finger" x="76" y="25"
+              width="30" height="115" rx="14"/>
+
+            <rect class="finger" x="111" y="8"
+              width="30" height="125" rx="14"/>
+
+            <rect class="finger" x="146" y="2"
+              width="30" height="130" rx="14"/>
+
+            <rect class="finger" x="181" y="22"
+              width="30" height="115" rx="14"/>
+
+          </g>
+
+          <!-- Pulgar -->
+          <g id="thumb">
+            <rect class="finger" x="205" y="125"
+              width="30" height="95" rx="14"
+              transform="rotate(-35 205 125)"/>
+          </g>
+
+          <circle class="joint" cx="148" cy="185" r="7"/>
+          <circle class="joint" cx="148" cy="220" r="7"/>
+
+        </svg>
+      </div>
+
+      <div class="telemetry">
+        MOTOR: <span id="motorStatus">IDLE</span><br>
+        POSITION: <span id="position">OPEN</span><br>
+        POWER: <span id="power">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <p class="small">SIMULATED DATA // NOT A REAL EMG MEASUREMENT</p>
+</section>
+
+<!-- PROCESAMIENTO -->
+<section class="slide">
+  <div class="tag">10 // SIGNAL PROCESSING</div>
+  <h2>Del cuerpo al movimiento</h2>
+  <div class="flow">
+    <div class="node" id="n1"><b>01</b>CUERPO</div>
+    <div class="node" id="n2"><b>02</b>CAPTURA</div>
+    <div class="node" id="n3"><b>03</b>ANÁLISIS</div>
+    <div class="node" id="n4"><b>04</b>CONTROL</div>
+    <div class="node" id="n5"><b>05</b>ACTUADOR</div>
+  </div>
+  <button onclick="runProcess()">RUN SYSTEM SEQUENCE</button>
+  <p id="processStatus" class="telemetry">SYSTEM READY...</p>
+</section>
+
+<!-- METODOLOGIA -->
+<section class="slide">
+  <div class="tag">11 // METHODOLOGY</div>
+  <h2>Metodología</h2>
+  <div class="grid">
+    <div class="card"><h3>ENFOQUE</h3><p>Cualitativo, mediante análisis técnico.</p></div>
+    <div class="card"><h3>TIPO</h3><p>Documental y descriptivo.</p></div>
+    <div class="card"><h3>TÉCNICA</h3><p>Revisión de artículos científicos y libros.</p></div>
+    <div class="card"><h3>PROCEDIMIENTO</h3><p>Comparación de tecnologías, funciones y limitaciones.</p></div>
+  </div>
+</section>
+
+<!-- RESULTADOS -->
+<section class="slide">
+  <div class="tag">12 // EXPECTED RESULTS</div>
+  <h2>Resultados esperados</h2>
+  <p>Identificar la función de los sensores.</p>
+  <p>Comprender el procesamiento de señales EMG.</p>
+  <p>Analizar factores que afectan la precisión.</p>
+  <p>Comparar capacidades y limitaciones.</p>
+</section>
+
+<!-- QUIZ -->
+<section class="slide">
+  <div class="tag">13 // SYSTEM TEST</div>
+  <h2>KNOWLEDGE CHECK</h2>
+  <p>¿Qué ocurre después de captar la actividad muscular?</p>
+  <div class="grid">
+    <button onclick="quiz(false)">A. El motor se mueve directamente.</button>
+    <button onclick="quiz(true)">B. La señal se acondiciona y procesa.</button>
+    <button onclick="quiz(false)">C. Los electrodos generan movimiento.</button>
+    <button onclick="quiz(false)">D. La señal desaparece.</button>
+  </div>
+  <h3 id="quizFeedback"></h3>
+</section>
+
+<!-- CONCLUSION -->
+<section class="slide">
+  <div class="tag">14 // CONCLUSION</div>
+  <h2>Conectar intención y movimiento</h2>
+  <p>Los sensores captan información del cuerpo, los circuitos electrónicos procesan las señales y los actuadores producen el movimiento.</p>
+  <h2 class="cyan">La electrónica convierte información biológica en acción mecánica.</h2>
+</section>
+
+<!-- FINAL -->
+<section class="slide">
+  <div class="tag">STARK INDUSTRIES // RESEARCH LAB</div>
+  <h1 class="cyan">THANK YOU.</h1>
+  <h2>Questions?</h2>
+  <p>Integrantes: [Nombre 1] · [Nombre 2]</p>
+  <p>Asignatura: [Asignatura]</p>
+  <p>Docente: [Docente]</p>
+  <p class="small">Agregar referencias bibliográficas científicas.</p>
+</section>
+
+</main>
+
+<nav class="controls">
+  <button onclick="move(-1)">← PREV</button>
+  <span id="counter">01 / 16</span>
+  <button onclick="move(1)">NEXT →</button>
+</nav>
+
+<script>
+
+// ============================
+// PRESENTATION ENGINE
+// ============================
+
+const slides = document.querySelectorAll(".slide");
+let current = 0;
+
+function showSlide(n) {
+  if(n < 0 || n >= slides.length) return;
+
+  slides[current].classList.remove("active");
+  current = n;
+  slides[current].classList.add("active");
+
+  document.getElementById("counter").textContent =
+    String(current+1).padStart(2,"0") +
+    " / " + String(slides.length).padStart(2,"0");
+
+  document.getElementById("progress").style.width =
+    ((current+1)/slides.length*100)+"%";
+}
+
+function move(n) {
+  showSlide(current+n);
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight" || e.key===" ") {
+    e.preventDefault();
+    move(1);
+  }
+  if(e.key==="ArrowLeft") move(-1);
+
+  if(e.key.toLowerCase()==="f") {
+    if(!document.fullscreenElement)
+      document.documentElement.requestFullscreen?.();
+    else
+      document.exitFullscreen?.();
+  }
+});
+
+// ============================
+// EMG SIMULATION
+// ============================
+
+const canvas = document.getElementById("signal");
+const ctx = canvas.getContext("2d");
+
+let intensity = 0;
+let signalRunning = false;
+let phase = 0;
+
+function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+
+  canvas.width = Math.max(1,rect.width*dpr);
+  canvas.height = Math.max(1,rect.height*dpr);
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+
+window.addEventListener("resize",resizeCanvas);
+resizeCanvas();
+
+document.getElementById("intensity").addEventListener("input",e=>{
+  intensity = Number(e.target.value);
+  signalRunning = intensity > 0;
+  updateSignal();
+});
+
+function activate() {
+  intensity = Math.max(intensity,70);
+  document.getElementById("intensity").value = intensity;
+  signalRunning = true;
+  updateSignal();
+}
+
+function release() {
+  intensity = 0;
+  signalRunning = false;
+  document.getElementById("intensity").value = 0;
+  updateSignal();
+}
+
+function updateSignal() {
+  document.getElementById("signalStatus").textContent =
+    intensity > 0 ? "ACTIVE" : "STANDBY";
+
+  document.getElementById("signalValue").textContent =
+    (intensity/100).toFixed(2);
+
+  document.getElementById("power").textContent =
+    intensity+"%";
+
+  document.getElementById("motorStatus").textContent =
+    intensity > 35 ? "MOVING" : "IDLE";
+
+  document.getElementById("position").textContent =
+    intensity > 35 ? "CLOSED" : "OPEN";
+
+  document.querySelectorAll(".finger").forEach(finger=>{
+    finger.classList.toggle("closed",intensity>35);
+  });
+}
+
+// Canvas animation
+function drawSignal() {
+  const w = canvas.clientWidth;
+  const h = canvas.clientHeight;
+
+  if(!w || !h) {
+    requestAnimationFrame(drawSignal);
+    return;
+  }
+
+  ctx.clearRect(0,0,w,h);
+
+  ctx.strokeStyle="#18374c";
+  ctx.lineWidth=1;
+
+  for(let y=20;y<h;y+=25) {
+    ctx.beginPath();
+    ctx.moveTo(0,y);
+    ctx.lineTo(w,y);
+    ctx.stroke();
+  }
+
+  ctx.beginPath();
+
+  for(let x=0;x<w;x++) {
+    let noise = signalRunning ?
+      (Math.random()-.5)*intensity*.8 : 0;
+
+    let wave =
+      Math.sin((x+phase)*.07)*noise;
+
+    let spike =
+      signalRunning && x%75<4 ?
+      -intensity*.65 : 0;
+
+    let y = h/2 + wave + spike;
+
+    if(x===0) ctx.moveTo(x,y);
+    else ctx.lineTo(x,y);
+  }
+
+  ctx.strokeStyle="#42ddff";
+  ctx.lineWidth=2;
+  ctx.shadowBlur=8;
+  ctx.shadowColor="#42ddff";
+  ctx.stroke();
+  ctx.shadowBlur=0;
+
+  phase+=signalRunning?3:1;
+
+  requestAnimationFrame(drawSignal);
+}
+
+drawSignal();
+
+// ============================
+// ELECTRONIC PROCESS SEQUENCE
+// ============================
+
+let processTimer = null;
+
+function runProcess() {
+  clearInterval(processTimer);
+
+  const nodes = [1,2,3,4,5];
+  let index = 0;
+
+  const status = document.getElementById("processStatus");
+
+  document.querySelectorAll(".node").forEach(n=>{
+    n.classList.remove("active");
+  });
+
+  const names = [
+    "CAPTURING MUSCLE SIGNAL...",
+    "AMPLIFYING AND FILTERING...",
+    "PROCESSING DATA...",
+    "GENERATING CONTROL COMMAND...",
+    "ACTUATOR MOVEMENT..."
+  ];
+
+  processTimer = setInterval(()=>{
+    if(index>=nodes.length) {
+      clearInterval(processTimer);
+      status.textContent="✓ PROCESS COMPLETED";
+      return;
+    }
+
+    nodes.forEach(n=>{
+      document.getElementById("n"+n)
+        .classList.remove("active");
+    });
+
+    document.getElementById("n"+nodes[index])
+      .classList.add("active");
+
+    status.textContent=names[index];
+    index++;
+
+  },900);
+}
+
+// ============================
+// QUIZ
+// ============================
+
+function quiz(correct) {
+  const feedback=document.getElementById("quizFeedback");
+
+  if(correct) {
+    feedback.textContent="✓ CORRECT! SYSTEM KNOWLEDGE VERIFIED.";
+    feedback.style.color="#65ffad";
+  } else {
+    feedback.textContent="✕ INCORRECT. REVIEW SIGNAL PROCESSING.";
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(72,217,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(72,217,255,.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+header {
+  height: 55px;
+  padding: 18px 5%;
+  border-bottom: 1px solid var(--line);
+  color: var(--cyan);
+  font-weight: bold;
+  letter-spacing: 3px;
+  background: #07111d;
+}
+
+header span {
+  color: var(--orange);
+}
+
+#progress {
+  height: 3px;
+  width: 0;
+  background: var(--cyan);
+  transition: width .3s;
+}
+
+#presentation {
+  height: calc(100vh - 120px);
+  position: relative;
+}
+
+.slide {
+  display: none;
+  height: 100%;
+  padding: 7vh 9vw;
+  overflow-y: auto;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.slide.active {
+  display: flex;
+  animation: appear .5s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tag {
+  color: var(--cyan);
+  letter-spacing: 4px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: clamp(40px,8vw,85px);
+  margin: 0 0 20px;
+}
+
+h2 {
+  font-size: clamp(26px,5vw,48px);
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: var(--cyan);
+}
+
+p {
+  font-size: clamp(16px,2vw,22px);
+  line-height: 1.6;
+  color: #c7d8e4;
+}
+
+.cyan {
+  color: var(--cyan);
+}
+
+.orange {
+  color: var(--orange);
+}
+
+.line {
+  width: 100px;
+  height: 3px;
+  background: var(--cyan);
+  margin: 20px 0;
+  box-shadow: 0 0 15px var(--cyan);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.card {
+  background: linear-gradient(145deg,#102337,#091521);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.card p {
+  font-size: 16px;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.number {
+  color: var(--orange);
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 25px 0;
+}
+
+.node {
+  flex: 1;
+  min-width: 110px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-align: center;
+  padding: 18px 10px;
+}
+
+.node b {
+  display: block;
+  color: var(--cyan);
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.arrow {
+  color: var(--orange);
+  font-size: 25px;
+}
+
+.callout {
+  border-left: 3px solid var(--orange);
+  padding: 15px;
+  background: rgba(255,157,66,.08);
+  line-height: 1.6;
+}
+
+.controls {
+  height: 65px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #07111d;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+button {
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid var(--line);
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  background: rgba(72,217,255,.2);
+}
+
+#counter {
+  color: var(--muted);
+}
+
+.quiz {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+}
+
+.quiz button {
+  text-align: left;
+  color: white;
+  padding: 18px;
+}
+
+#feedback {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.small {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+@media(max-width:650px) {
+  .grid, .quiz {
+    grid-template-columns: 1fr;
+  }
+
+  .slide {
+    padding: 5vh 6vw;
+  }
+
+  .arrow {
+    display: none;
+  }
+
+  .node {
+    flex-basis: 40%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  STARK <span>INDUSTRIES</span> // RESEARCH LAB
+</header>
+
+<div id="progress"></div>
+
+<main id="presentation">
+
+<!-- 1 -->
+<section class="slide active">
+  <div class="tag">RESEARCH PROTOCOL // 2026</div>
+  <h1>PROJECT <span class="cyan">IRONHAND</span></h1>
+  <div class="line"></div>
+  <h2>Integración de sensores electrónicos y señales bioeléctricas en la funcionalidad de las prótesis</h2>
+  <p>De la actividad muscular al movimiento asistido.</p>
+  <p class="orange">BIOMEDICAL ENGINEERING DIVISION</p>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="tag">01 // INTRODUCCIÓN</div>
+  <h2>Una prótesis ya no es solamente mecánica</h2>
+  <p>Las prótesis han evolucionado de dispositivos principalmente mecánicos a sistemas que incorporan electrónica, sensores y sistemas de control.</p>
+  <div class="grid">
+    <div class="card">
+      <h3>ANTES</h3>
+      <p>Funcionamiento principalmente mecánico, basado en mecanismos y movimiento corporal.</p>
+    </div>
+    <div class="card">
+      <h3>ACTUALIDAD</h3>
+      <p>Integración de sensores, procesamiento electrónico y actuadores para controlar movimientos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="tag">02 // PROBLEMA</div>
+  <h2>¿Qué problema queremos comprender?</h2>
+  <p>Controlar una prótesis con precisión requiere transformar información proveniente del usuario en órdenes que permitan generar movimientos.</p>
+  <div class="callout">
+    La interacción entre sensores, señales bioeléctricas y procesamiento electrónico puede influir en la precisión, respuesta y variedad de movimientos de una prótesis.
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="tag">03 // DELIMITACIÓN</div>
+  <h2>Alcance del proyecto</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>INCLUYE</h3>
+      <p>• Sensores electrónicos.</p>
+      <p>• Señales bioeléctricas.</p>
+      <p>• Procesamiento de señales.</p>
+      <p>• Control de movimiento.</p>
+    </div>
+    <div class="card">
+      <h3>NO INCLUYE</h3>
+      <p>• Cirugías.</p>
+      <p>• Rehabilitación clínica.</p>
+      <p>• Fabricación completa.</p>
+      <p>• Evaluación médica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="tag">04 // PREGUNTA GENERAL</div>
+  <h2>¿Qué queremos investigar?</h2>
+  <div class="card">
+    <p class="number">PREGUNTA CENTRAL</p>
+    <h2 class="cyan">¿Cómo impacta la integración de sensores electrónicos y señales bioeléctricas en la funcionalidad de las prótesis?</h2>
+  </div>
+  <p>Preguntas específicas:</p>
+  <p>1. ¿Qué función cumplen los sensores?</p>
+  <p>2. ¿Cómo se utilizan las señales bioeléctricas?</p>
+  <p>3. ¿Cómo influye esta integración en la precisión?</p>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="tag">05 // HIPÓTESIS</div>
+  <h2>Hipótesis de trabajo</h2>
+  <p>La integración de sensores electrónicos con sistemas de adquisición y procesamiento de señales bioeléctricas puede mejorar el control y la precisión de movimiento de una prótesis.</p>
+  <div class="callout">
+    Esto depende de la calidad de las señales, la calibración, el procesamiento y el diseño del sistema de control.
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="tag">06 // OBJETIVOS</div>
+  <h2>¿Qué buscamos lograr?</h2>
+  <div class="card">
+    <h3>OBJETIVO GENERAL</h3>
+    <p>Analizar cómo la integración de sensores electrónicos y señales bioeléctricas influye en el control, precisión y funcionalidad de las prótesis.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>01</h3>
+      <p>Identificar los sensores utilizados.</p>
+    </div>
+    <div class="card">
+      <h3>02</h3>
+      <p>Explicar la adquisición de señales musculares.</p>
+    </div>
+    <div class="card">
+      <h3>03</h3>
+      <p>Describir el procesamiento electrónico.</p>
+    </div>
+    <div class="card">
+      <h3>04</h3>
+      <p>Analizar las ventajas y limitaciones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="tag">07 // ELECTRÓNICA</div>
+  <h2>La cadena electrónica</h2>
+  <p>La electrónica transforma una señal biológica en una orden que puede accionar un mecanismo.</p>
+  <div class="flow">
+    <div class="node"><b>01</b>Electrodos</div>
+    <div class="arrow">→</div>
+    <div class="node"><b>02</b>Amplificación</div>
+    <div class="arrow">→</div>
+    <div class="node"><b>03</b>Filtrado</div>
+    <div class="arrow">→</div>
+    <div class="node"><b>04</b>Microcontrolador</div>
+    <div class="arrow">→</div>
+    <div class="node"><b>05</b>Motor</div>
+  </div>
+  <p class="small">Esquema conceptual simplificado de una prótesis mioeléctrica.</p>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="tag">08 // SENSORES</div>
+  <h2>¿Qué información detectan?</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Electrodos EMG</h3>
+      <p>Registran diferencias de potencial asociadas con la actividad eléctrica muscular.</p>
+    </div>
+    <div class="card">
+      <h3>Sensor de fuerza</h3>
+      <p>Permite estimar la fuerza de agarre o contacto.</p>
+    </div>
+    <div class="card">
+      <h3>Sensor de posición</h3>
+      <p>Determina el ángulo o posición de una articulación.</p>
+    </div>
+    <div class="card">
+      <h3>Sensor de movimiento</h3>
+      <p>Mide aceleración y orientación.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="tag">09 // BIOSEÑALES</div>
+  <h2>Actividad muscular y electromiografía</h2>
+  <p>La electromiografía (EMG) permite registrar la actividad eléctrica asociada con la contracción muscular.</p>
+  <div class="card">
+    <h3>Señal EMG ilustrativa</h3>
+    <svg viewBox="0 0 800 150" width="100%">
+      <path d="M0 75 L30 75 L45 25 L60 125 L75 55 L90 100 L110 75 L160 75 L180 35 L195 115 L210 55 L230 100 L250 75 L300 75 L320 20 L335 130 L350 55 L370 105 L390 75 L440 75 L460 35 L475 115 L490 55 L510 100 L530 75 L580 75 L600 25 L615 125 L630 55 L650 100 L670 75 L800 75" fill="none" stroke="#48d9ff" stroke-width="3"/>
+    </svg>
+    <p class="small">Forma de onda esquemática, no corresponde a una medición real.</p>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <div class="tag">10 // INTEGRACIÓN</div>
+  <h2>De la señal al movimiento</h2>
+  <div class="flow">
+    <div class="node"><b>CUERPO</b>Actividad muscular</div>
+    <div class="arrow">→</div>
+    <div class="node"><b>CAPTURA</b>Electrodos</div>
+    <div class="arrow">→</div>
+    <div class="node"><b>ANÁLISIS</b>Procesamiento</div>
+    <div class="arrow">→</div>
+    <div class="node"><b>ACCIÓN</b>Actuadores</div>
+  </div>
+  <p>El sistema interpreta las características de la señal y selecciona una respuesta que controla el movimiento de la prótesis.</p>
+  <div class="callout">La señal muscular no mueve directamente el motor: primero debe medirse, acondicionarse e interpretarse.</div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <div class="tag">11 // METODOLOGÍA</div>
+  <h2>¿Cómo investigaremos?</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>ENFOQUE</h3>
+      <p>Cualitativo, mediante análisis técnico de información científica.</p>
+    </div>
+    <div class="card">
+      <h3>TIPO</h3>
+      <p>Documental y descriptivo, no experimental.</p>
+    </div>
+    <div class="card">
+      <h3>TÉCNICA</h3>
+      <p>Revisión de artículos científicos, libros y documentos técnicos.</p>
+    </div>
+    <div class="card">
+      <h3>PROCEDIMIENTO</h3>
+      <p>Identificar tecnologías, comparar funciones y analizar limitaciones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <div class="tag">12 // RESULTADOS ESPERADOS</div>
+  <h2>¿Qué esperamos encontrar?</h2>
+  <p>• Identificar la función de los sensores.</p>
+  <p>• Comprender cómo se procesan las señales EMG.</p>
+  <p>• Analizar factores que afectan la precisión.</p>
+  <p>• Comparar capacidades y limitaciones.</p>
+  <div class="callout">Las conclusiones deberán fundamentarse en las fuentes consultadas.</div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <div class="tag">13 // KNOWLEDGE CHECK</div>
+  <h2>Prueba del sistema</h2>
+  <p>¿Qué ocurre después de que los electrodos captan la actividad muscular?</p>
+  <div class="quiz">
+    <button onclick="answer(false)">A. El motor se mueve directamente.</button>
+    <button onclick="answer(true)">B. La señal se acondiciona y procesa.</button>
+    <button onclick="answer(false)">C. Se convierte directamente en movimiento.</button>
+    <button onclick="answer(false)">D. Los electrodos generan contracción muscular.</button>
+  </div>
+  <div id="feedback"></div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <div class="tag">14 // CONCLUSIÓN</div>
+  <h2>Conectar intención y movimiento</h2>
+  <p>La integración de sensores electrónicos y señales bioeléctricas permite establecer una interfaz entre el cuerpo humano y una prótesis.</p>
+  <p>Los sensores captan información, los circuitos la acondicionan, el sistema de control la interpreta y los actuadores generan el movimiento.</p>
+  <h2 class="cyan">La electrónica convierte información biológica en acción mecánica.</h2>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <div class="tag">STARK INDUSTRIES // PROJECT IRONHAND</div>
+  <h1 class="cyan">THANK YOU.</h1>
+  <h2>Questions?</h2>
+  <p>Integrantes: [Nombre 1] · [Nombre 2]</p>
+  <p>Asignatura: [Asignatura]</p>
+  <p>Docente: [Docente]</p>
+  <p class="small">Referencias bibliográficas: agregar fuentes científicas utilizadas.</p>
+</section>
+
+</main>
+
+<nav class="controls">
+  <button onclick="move(-1)">← ANTERIOR</button>
+  <div id="counter">01 / 16</div>
+  <button onclick="move(1)">SIGUIENTE →</button>
+</nav>
+
+<script>
+const slides = document.querySelectorAll(".slide");
+let current = 0;
+
+function showSlide(n) {
+  if (n < 0 || n >= slides.length) return;
+
+  slides[current].classList.remove("active");
+  current = n;
+  slides[current].classList.add("active");
+
+  document.getElementById("counter").textContent =
+    String(current + 1).padStart(2, "0") +
+    " / " + String(slides.length).padStart(2, "0");
+
+  document.getElementById("progress").style.width =
+    ((current + 1) / slides.length * 100) + "%";
+}
+
+function move(direction) {
+  showSlide(current + direction);
+}
+
+function answer(correct) {
+  const feedback = document.getElementById("feedback");
+
+  if (correct) {
+    feedback.textContent = "✓ CORRECTO. La señal necesita acondicionamiento y procesamiento.";
+    feedback.style.color = "#7dedae";
+  } else {
+    feedback.textContent = "✕ INCORRECTO. Primero se debe acondicionar y procesar la señal.";
+    feedback.style.color = "#ff9d42";
+  }
+}
+
+document.addEventListener("keydown", function(event) {
+  if (event.key === "ArrowRight" || event.key === " ") {
+    event.preventDefault();
+    move(1);
+  }
+
+  if (event.key === "ArrowLeft") {
+    move(-1);
+  }
+
+  if (event.key.toLowerCase() === "f") {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.();
+    } else {
+      document.exitFullscreen?.();
+    }
+  }
+});
+
+showSlide(0);
+</script>
+
+</body>
+</html>
+
